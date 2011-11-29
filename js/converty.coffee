@@ -19,7 +19,21 @@ jQuery ($) ->
     htmlDecode:
       label: 'HTML Decode'
       convert: (value) -> $("<div/>").html(value).text()
-  
+      
+    addSlashes:
+      label: 'Add Slashes'
+      convert: (value) -> value.replace(/[\\"']/g, '\\$&').replace(/\u0000/g, '\\0');
+      
+    removeSlashes:
+      label: 'Strip Slashes'
+      convert: (value) -> 
+        value.replace /\\(.?)/g, (s, n1) ->
+          switch n1
+            when '\\' then '\\'
+            when '0' then '\u0000'
+            when '' then ''
+            else n1
+        
   $.each converters, (key, info) ->
     button = $ "<button name=\"#{key}\">#{info['label']}</button>"
     toolbar.append button

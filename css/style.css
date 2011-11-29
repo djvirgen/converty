@@ -1,0 +1,28 @@
+body {
+  width: 760px;
+  font-size: 1.0em;
+  font-family: trebuchet ms;
+  background: #22272f;
+  color: #7c8aa1;
+  margin: 0 auto;
+  padding: 20px; }
+
+a {
+  color: #fff; }
+
+#from, #to {
+  width: 754px;
+  height: 200px;
+  overflow: auto;
+  background: #fff;
+  padding: 2px;
+  border: 1px solid #888;
+  color: #000;
+  font-size: 1.0em;
+  font-family: consolas; }
+
+#from {
+  text-decoration: dotted-underline; }
+
+#to.error {
+  background: #f00; }

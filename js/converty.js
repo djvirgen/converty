@@ -28,6 +28,29 @@
         convert: function(value) {
           return $("<div/>").html(value).text();
         }
+      },
+      addSlashes: {
+        label: 'Add Slashes',
+        convert: function(value) {
+          return value.replace(/[\\"']/g, '\\$&').replace(/\u0000/g, '\\0');
+        }
+      },
+      removeSlashes: {
+        label: 'Strip Slashes',
+        convert: function(value) {
+          return value.replace(/\\(.?)/g, function(s, n1) {
+            switch (n1) {
+              case '\\':
+                return '\\';
+              case '0':
+                return '\u0000';
+              case '':
+                return '';
+              default:
+                return n1;
+            }
+          });
+        }
       }
     };
     $.each(converters, function(key, info) {

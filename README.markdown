@@ -5,9 +5,10 @@ Convert (almost) any text into (almost) any text!
 
 Useful for:
 
-* Base64
-* HTML Entities
-* URL Encoding/Decoding
+* Base64!
+* HTML Entities!
+* URL Encoding/Decoding!
+* Add/Strip Slashes!
 * And more!! (coming sometime in the near-to-distant future)
 
 --

@@ -1,0 +1,35 @@
+$background-color: #22272f;
+
+body{
+  width: 760px;
+  font-size: 1.0em;
+  font-family: trebuchet ms;
+  background: $background-color;
+  color: lighten($background-color, 40%);
+  margin: 0 auto;
+  padding: 20px;
+}
+
+a{
+  color: #fff;
+}
+
+#from, #to{
+  width: 754px;
+  height: 200px;
+  overflow: auto;
+  background: #fff;
+  padding: 2px;
+  border: 1px solid #888;
+  color: #000;
+  font-size: 1.0em;
+  font-family: consolas;
+}
+
+#from{
+  text-decoration: dotted-underline;
+}
+
+#to.error{
+  background: #f00;
+}

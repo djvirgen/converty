@@ -3,46 +3,26 @@
 <head>
   <title>Converty - Convert anything to anything!</title>
   <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
-  <script type="text/javascript" src="js/converty.js"></script></head>
+  <script type="text/javascript" src="js/converty.js"></script>
+  <link rel="stylesheet" type="text/css" href="css/style.css"></link>
+</head>
 <body>
-  <style type="text/css">
-    body{
-      width: 760px;
-      font-size: 1.0em;
-      font-family: trebuchet ms;
-      background: #12171f;
-      color: #c2c6cf;
-      margin: 0 auto;
-      padding: 20px;
-    }
-    
-    a{
-      color: #fff;
-    }
-    
-    #from, #to{
-      width: 754px;
-      height: 200px;
-      overflow: auto;
-      background: #fff;
-      padding: 2px;
-      border: 1px solid #888;
-      color: #000;
-      font-size: 12px;
-    }
-    
-    #from{
-      text-decoration: dotted-underline;
-    }
-    
-    #to.error{
-      background: #f00;
-    }
-  </style>
   <h1>Converty - Convert anything to anything!</h1>
   
   <textarea id="from"></textarea>
   <div id="toolbar"></div>
   <pre id="to"></pre>
+
+  <div id="disqus_thread"></div>
+  <script type="text/javascript">
+    var disqus_identifier = 'http://www.virgentech.com/demos/converty'; // [Optional but recommended: Define a unique identifier (e.g. post id or slug) for this thread] 
+    (function() {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://virgentech.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript=virgentech">comments powered by Disqus.</a></noscript>
+  <a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
 </body>
 </html>
