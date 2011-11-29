@@ -1,4 +1,5 @@
-$background-color: #22272f;
+$background-color: #191c22;
+$attention-color: #36d;
 
 body{
   width: 760px;
@@ -8,6 +9,11 @@ body{
   color: lighten($background-color, 40%);
   margin: 0 auto;
   padding: 20px;
+}
+
+h1, h2, h3, h4, h5, h6{
+  color: $attention-color;
+  text-shadow: 0 0 3px rgba(0, 0, 0, 0.5);
 }
 
 a{
@@ -35,4 +41,16 @@ a{
 
 #to.error{
   background: #f00;
+}
+
+#fork{
+  display: block;
+  position: fixed;
+  right: -1em;
+  top: -1em;
+  padding: 1.2em 2em 0.4em 2em;
+  border-radius: 0 0 0 20em;
+  background: $attention-color;
+  color: #fff;
+  box-shadow: 0 0 4px 4px rgba(0, 0, 0, 0.5);
 }
