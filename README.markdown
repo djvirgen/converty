@@ -4,6 +4,7 @@ Converty
 Convert (almost) any text into (almost) any text!
 
 Useful for:
+
 * Base64
 * HTML Entities
 * URL Encoding/Decoding
