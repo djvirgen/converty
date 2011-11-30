@@ -18,9 +18,9 @@ abstract class Codec
   }
 }
 
-class Codec_Gzip
+class Codec_Gzip extends Codec
 {
-  public funciton encode()
+  public function encode()
   {
     return gzencode($this->_value);
   }
