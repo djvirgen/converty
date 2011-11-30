@@ -1,6 +1,6 @@
 
   jQuery(function($) {
-    var converters, from, to, toolbar;
+    var convert, converters, from, to, toolbar;
     from = $('#from');
     to = $('#to');
     toolbar = $('#toolbar');
@@ -51,6 +51,24 @@
             }
           });
         }
+      },
+      gzipEncode: {
+        label: 'Gzip Encode',
+        ajax: function(value) {
+          return {
+            codec: 'gzip',
+            method: 'encode'
+          };
+        }
+      },
+      gzipDecode: {
+        label: 'Gzip Decode',
+        ajax: function(value) {
+          return {
+            codec: 'gzip',
+            method: 'decode'
+          };
+        }
       }
     };
     $.each(converters, function(key, info) {
@@ -58,18 +76,35 @@
       button = $("<button name=\"" + key + "\">" + info['label'] + "</button>");
       return toolbar.append(button);
     });
+    convert = function(name, value) {
+      var after;
+      if (converters[name]['convert']) {
+        after = converters[name]['convert'](value);
+        return to.text(after);
+      } else if (converters[name]['ajax']) {
+        return $.ajax({
+          url: 'converty.php',
+          type: 'get',
+          data: $.extend({
+            value: value
+          }, converters[name]['ajax'](value)),
+          success: function(r) {
+            return to.text(r);
+          }
+        });
+      }
+    };
     return $('#toolbar button').live('click', function(event) {
-      var after, before, button, name;
+      var after, button, name, value;
       button = $(this);
       name = button.attr('name');
-      before = from.val();
+      value = from.val();
       if (to.hasClass('error')) to.removeClass('error');
       try {
-        after = converters[name]['convert'](before);
+        return after = convert(name, value);
       } catch (e) {
         after = 'Unable to converty!!';
-        to.addClass('error');
+        return to.addClass('error');
       }
-      return to.text(after);
     });
   });
