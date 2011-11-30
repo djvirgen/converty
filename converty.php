@@ -22,12 +22,12 @@ class Codec_Gzip extends Codec
 {
   public function encode()
   {
-    return gzencode($this->_value);
+    return gzcompress($this->_value);
   }
   
   public function decode()
   {
-    return gzdecode($this->_value);
+    return gzdeflate($this->_value);
   }
 }
 
