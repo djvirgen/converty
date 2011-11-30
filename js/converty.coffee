@@ -1,8 +1,13 @@
 jQuery ($) ->
+  # Configure AJAX
+  $.ajaxSetup
+    scriptCharset: "utf-8"
+
   from = $ '#from'
   to = $ '#to'
   toolbar = $ '#toolbar'
-
+  
+  # Converter configurations / callbacks
   converters =
     uriEncode:
       label: 'URI Encode'

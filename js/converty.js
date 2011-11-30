@@ -1,6 +1,9 @@
 
   jQuery(function($) {
     var convert, converters, from, to, toolbar;
+    $.ajaxSetup({
+      scriptCharset: "utf-8"
+    });
     from = $('#from');
     to = $('#to');
     toolbar = $('#toolbar');
