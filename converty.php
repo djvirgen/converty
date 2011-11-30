@@ -31,7 +31,7 @@ class Codec_Gzip extends Codec
   }
 }
 
-$codec Converty::factory($_GET['codec'], $_GET['value']);
+$codec = Converty::factory($_GET['codec'], $_GET['value']);
 $method = $_GET['method'];
 switch ($method) {
   case 'encode':
