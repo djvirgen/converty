@@ -69,6 +69,8 @@ jQuery ($) ->
     toolbar.append button
   
   update = (value, type = 'text') ->
+    to.height 180
+    
     if 'html' == type
       to.css {whiteSpace: 'normal'}
       to.html value
