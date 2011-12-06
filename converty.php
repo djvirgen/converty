@@ -35,7 +35,7 @@ class Codec_Markdown extends Codec
 {
   public function encode()
   {
-    require_once __DIR__ . '/library/Markdown/markdown.php';
+    require_once dirname(__FILE__) . '/library/Markdown/markdown.php';
     return Markdown($this->_value);
   }
 }
