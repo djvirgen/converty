@@ -90,18 +90,22 @@
       return toolbar.append(button);
     });
     update = function(value, type) {
+      var height;
       if (type == null) type = 'text';
       if ('html' === type) {
         to.css({
           whiteSpace: 'normal'
         });
-        return to.html(value);
+        to.html(value);
       } else {
         to.css({
           whiteSpace: 'pre'
         });
-        return to.text(value);
+        to.text(value);
       }
+      height = to[0].scrollHeight;
+      if (height < 180) height = 180;
+      return to.height(height);
     };
     convert = function(name, value) {
       var after, type, _base, _ref;

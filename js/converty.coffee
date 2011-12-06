@@ -75,6 +75,10 @@ jQuery ($) ->
     else
       to.css {whiteSpace: 'pre'}
       to.text value
+    
+    height = to[0].scrollHeight
+    height = 180 if height < 180
+    to.height height
   
   convert = (name, value) ->
     converters[name]['type'] ?= 'text'
