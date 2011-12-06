@@ -31,6 +31,15 @@ class Codec_Gzip extends Codec
   }
 }
 
+class Codec_Markdown extends Codec
+{
+  public function encode()
+  {
+    require_once __DIR__ . '/library/Markdown/markdown.php';
+    return Markdown($this->_value);
+  }
+}
+
 $codec = Converty::factory($_GET['codec'], $_GET['value']);
 $method = $_GET['method'];
 switch ($method) {

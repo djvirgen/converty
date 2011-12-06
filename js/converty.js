@@ -1,6 +1,6 @@
 
   jQuery(function($) {
-    var convert, converters, from, to, toolbar;
+    var convert, converters, from, to, toolbar, update;
     $.ajaxSetup({
       scriptCharset: "utf-8"
     });
@@ -72,6 +72,16 @@
             method: 'decode'
           };
         }
+      },
+      markdown: {
+        label: 'Markdown',
+        type: 'html',
+        ajax: function(value) {
+          return {
+            codec: 'markdown',
+            method: 'encode'
+          };
+        }
       }
     };
     $.each(converters, function(key, info) {
@@ -79,11 +89,29 @@
       button = $("<button name=\"" + key + "\">" + info['label'] + "</button>");
       return toolbar.append(button);
     });
+    update = function(value, type) {
+      if (type == null) type = 'text';
+      if ('html' === type) {
+        to.css({
+          whiteSpace: 'normal'
+        });
+        return to.html(value);
+      } else {
+        to.css({
+          whiteSpace: 'pre'
+        });
+        return to.text(value);
+      }
+    };
     convert = function(name, value) {
-      var after;
+      var after, type, _base, _ref;
+      if ((_ref = (_base = converters[name])['type']) == null) {
+        _base['type'] = 'text';
+      }
+      type = converters[name]['type'];
       if (converters[name]['convert']) {
         after = converters[name]['convert'](value);
-        return to.text(after);
+        return update(after, type);
       } else if (converters[name]['ajax']) {
         return $.ajax({
           url: 'converty.php',
@@ -91,8 +119,8 @@
           data: $.extend({
             value: value
           }, converters[name]['ajax'](value)),
-          success: function(r) {
-            return to.text(r);
+          success: function(after) {
+            return update(after, type);
           }
         });
       }
@@ -106,6 +134,7 @@
       try {
         return after = convert(name, value);
       } catch (e) {
+        alert(e);
         after = 'Unable to converty!!';
         return to.addClass('error');
       }

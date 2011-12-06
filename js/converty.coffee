@@ -55,14 +55,33 @@ jQuery ($) ->
           method: 'decode'
         }
         
+    markdown:
+      label: 'Markdown'
+      type: 'html'
+      ajax: (value) ->
+        {
+          codec: 'markdown'
+          method: 'encode'
+        }
+        
   $.each converters, (key, info) ->
     button = $ "<button name=\"#{key}\">#{info['label']}</button>"
     toolbar.append button
   
+  update = (value, type = 'text') ->
+    if 'html' == type
+      to.css {whiteSpace: 'normal'}
+      to.html value
+    else
+      to.css {whiteSpace: 'pre'}
+      to.text value
+  
   convert = (name, value) ->
+    converters[name]['type'] ?= 'text'
+    type = converters[name]['type']
     if converters[name]['convert']
       after = converters[name]['convert'] value
-      to.text after
+      update after, type
     else if converters[name]['ajax']
       $.ajax({
         url: 'converty.php'
@@ -70,8 +89,8 @@ jQuery ($) ->
         data: $.extend({
           value: value
         }, converters[name]['ajax'](value));
-        success: (r) ->
-          to.text r
+        success: (after) ->
+          update after, type
       });
   
   # timeout = null
@@ -90,5 +109,6 @@ jQuery ($) ->
     try
       after = convert name, value
     catch e
+      alert e
       after = 'Unable to converty!!'
       to.addClass 'error'
