@@ -92,6 +92,7 @@
     update = function(value, type) {
       var height;
       if (type == null) type = 'text';
+      to.height(180);
       if ('html' === type) {
         to.css({
           whiteSpace: 'normal'
