@@ -105,6 +105,7 @@
       }
       height = to[0].scrollHeight;
       if (height < 180) height = 180;
+      height += 20;
       return to.height(height);
     };
     convert = function(name, value) {
