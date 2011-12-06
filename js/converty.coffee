@@ -78,6 +78,7 @@ jQuery ($) ->
     
     height = to[0].scrollHeight
     height = 180 if height < 180
+    height += 20
     to.height height
   
   convert = (name, value) ->
