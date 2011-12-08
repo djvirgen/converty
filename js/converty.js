@@ -1,12 +1,14 @@
 
   jQuery(function($) {
-    var convert, converters, from, to, toolbar, update;
+    var $converterChain, convert, convertAll, converterChain, converters, from, timeout, to, toolbar, update;
     $.ajaxSetup({
       scriptCharset: "utf-8"
     });
     from = $('#from');
     to = $('#to');
     toolbar = $('#toolbar');
+    converterChain = [];
+    $converterChain = $('#converter-chain');
     converters = {
       uriEncode: {
         label: 'URI Encode',
@@ -110,39 +112,40 @@
       return to.height(height);
     };
     convert = function(name, value) {
-      var after, type, _base, _ref;
+      var type, _base, _ref;
       if ((_ref = (_base = converters[name])['type']) == null) {
         _base['type'] = 'text';
       }
       type = converters[name]['type'];
-      if (converters[name]['convert']) {
-        after = converters[name]['convert'](value);
-        return update(after, type);
-      } else if (converters[name]['ajax']) {
-        return $.ajax({
-          url: 'converty.php',
-          type: 'get',
-          data: $.extend({
-            value: value
-          }, converters[name]['ajax'](value)),
-          success: function(after) {
-            return update(after, type);
-          }
-        });
-      }
+      if (converters[name]['convert']) return converters[name]['convert'](value);
     };
+    convertAll = function(value) {
+      return $.ajax({
+        url: 'converty.php',
+        type: 'get',
+        data: {
+          value: value,
+          converterChain: converterChain
+        },
+        success: function(after) {
+          return update(after);
+        }
+      });
+    };
+    timeout = null;
+    from.live('input', function(event) {
+      if (timeout !== null) window.clearTimeout(timeout);
+      return timeout = window.setTimeout(function() {
+        convertAll(from.val());
+        return timeout = null;
+      }, 500);
+    });
     return $('#toolbar button').live('click', function(event) {
-      var after, button, name, value;
+      var button, name;
       button = $(this);
       name = button.attr('name');
-      value = from.val();
-      if (to.hasClass('error')) to.removeClass('error');
-      try {
-        return after = convert(name, value);
-      } catch (e) {
-        alert(e);
-        after = 'Unable to converty!!';
-        return to.addClass('error');
-      }
+      converterChain.push(name);
+      $converterChain.append($('<li></li>').text(name));
+      return from.triggerHandler('input');
     });
   });
